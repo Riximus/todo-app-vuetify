@@ -41,7 +41,7 @@
                 <v-list-item-title class="text-center">{{todo.task}}</v-list-item-title>
                 <v-list-item-subtitle class="text-center">{{todo.date}}</v-list-item-subtitle>
               </div>
-              <v-btn @click.stop="deleteTodo" variant="plain" height="auto">
+              <v-btn @click.stop="deleteTodo(index)" variant="plain" height="auto">
                 <v-icon size="x-large" color="red" icon="mdi-delete"></v-icon>
               </v-btn>
             </div>
@@ -92,8 +92,11 @@ export default {
 
       SetTodoStorage(this.todos)
     },
-    deleteTodo(){
+    deleteTodo(todoIndex){
       console.log("Todo Deleted")
+
+      this.todos.splice(todoIndex, 1)
+      SetTodoStorage(this.todos)
     }
   }
 }
