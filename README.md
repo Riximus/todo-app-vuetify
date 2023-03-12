@@ -21,12 +21,18 @@
 
 ## **Nonfunctional requirements**
 
-- [ ]  Save Todo’s in a database
+- [ ]  Save Todo’s in a Database
     - [ ]  Save
     - [ ]  Done Change
     - [ ]  Delete
 - [ ]  Tests
-- [ ]  Gestaltung von UI
+- [x]  Gestaltung von UI
+    - [x]  Input
+    - [x]  Filter Buttons (or Select)
+    - [x]  List for To Do's
+       - [x]  Checkbox
+       - [x]  Delete Button
+       - [x]  Progress Bar or Circle
 
 ## **Optional extensions**
 
