@@ -12,8 +12,8 @@
 
 - [x]  Add Todo
 - [ ]  Delete To Do
-- [ ]  Mark To Do as done
-    - [ ]  Checkbox state like isDone boolean
+- [x]  Mark To Do as done
+    - [x]  Checkbox state like isDone boolean
 - [ ]  To Do’s filter
     - [ ]  active
     - [ ]  done

@@ -32,12 +32,12 @@
 
           <v-progress-linear></v-progress-linear>
 
-          <v-list-item v-for="(todo, index) in todos" :key="todos.id" class="my-2" @click="checkTodo">
+          <v-list-item v-for="(todo, index) in todos" :key="todos.id" class="my-2" @click="checkTodo(index)">
             <div class="d-flex justify-space-between">
               <v-list-item-action>
-                <v-checkbox-btn @click.stop="checkTodo"/>
+                <v-checkbox-btn @click.stop="checkTodo(index)" v-model="todo.isDone"/>
               </v-list-item-action>
-              <div>
+              <div :class="{'text-decoration-line-through text-disabled': todo.isDone}">
                 <v-list-item-title class="text-center">{{todo.task}}</v-list-item-title>
                 <v-list-item-subtitle class="text-center">{{todo.date}}</v-list-item-subtitle>
               </div>
@@ -85,8 +85,12 @@ export default {
       SetTodoStorage(this.todos)
       this.todoInput = ''
     },
-    checkTodo(){
+    checkTodo(todoIndex){
       console.log("Todo Checked")
+
+      this.todos[todoIndex].isDone = !this.todos[todoIndex].isDone
+
+      SetTodoStorage(this.todos)
     },
     deleteTodo(){
       console.log("Todo Deleted")
