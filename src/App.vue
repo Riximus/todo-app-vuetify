@@ -20,9 +20,9 @@
 
         <v-list>
           <div class="d-flex justify-space-between">
-            <v-list-subheader>Your tasks</v-list-subheader>
+            <v-list-subheader>Your tasks: {{todosDone}} / {{todos.length}}</v-list-subheader>
             <v-card-actions>
-              <v-btn-toggle>
+              <v-btn-toggle mandatory v-model="filterState">
                 <v-btn value="all">all</v-btn>
                 <v-btn value="done">done</v-btn>
                 <v-btn value="active">active</v-btn>
@@ -30,18 +30,18 @@
             </v-card-actions>
           </div>
 
-          <v-progress-linear></v-progress-linear>
+          <v-progress-linear :model-value="todosDone" :max="todos.length"></v-progress-linear>
 
-          <v-list-item v-for="(todo, index) in todos" :key="todos.id" class="my-2" @click="checkTodo(index)">
+          <v-list-item v-for="todo in todosFiltered" :key="todos.id" class="my-2" @click="checkTodo(todo)">
             <div class="d-flex justify-space-between">
               <v-list-item-action>
-                <v-checkbox-btn @click.stop="checkTodo(index)" v-model="todo.isDone"/>
+                <v-checkbox-btn @click.stop="checkTodo(todo)" v-model="todo.isDone"/>
               </v-list-item-action>
               <div :class="{'text-decoration-line-through text-disabled': todo.isDone}">
                 <v-list-item-title class="text-center">{{todo.task}}</v-list-item-title>
                 <v-list-item-subtitle class="text-center">{{todo.date}}</v-list-item-subtitle>
               </div>
-              <v-btn @click.stop="deleteTodo(index)" variant="plain" height="auto">
+              <v-btn @click.stop="deleteTodo(todo)" variant="plain" height="auto">
                 <v-icon size="x-large" color="red" icon="mdi-delete"></v-icon>
               </v-btn>
             </div>
@@ -61,11 +61,25 @@ const TODO_STORAGE = 'todoStorage'
 const SetTodoStorage = (todos) => localStorage.setItem(TODO_STORAGE, JSON.stringify(todos))
 const todayDate = () => new Date().toLocaleDateString('de-CH')
 const todoId = () => uuid4()
+const filters = {
+  all: (todos) => todos,
+  active: (todos) => todos.filter((todo) => !todo.isDone),
+  done: (todos) => todos.filter((todo) => todo.isDone)
+}
 export default {
   data(){
     return{
       todoInput: '',
-      todos: JSON.parse(localStorage.getItem(TODO_STORAGE)) || []
+      todos: JSON.parse(localStorage.getItem(TODO_STORAGE)) || [],
+      filterState: 'all'
+    }
+  },
+  computed:{
+    todosFiltered(){
+      return filters[this.filterState](this.todos)
+    },
+    todosDone(){
+      return filters.done(this.todos).length
     }
   },
   methods:{
@@ -85,16 +99,16 @@ export default {
       SetTodoStorage(this.todos)
       this.todoInput = ''
     },
-    checkTodo(todoIndex){
+    checkTodo(todo){
       console.log("Todo Checked")
-
+      const todoIndex = this.todos.indexOf(todo)
       this.todos[todoIndex].isDone = !this.todos[todoIndex].isDone
 
       SetTodoStorage(this.todos)
     },
-    deleteTodo(todoIndex){
+    deleteTodo(todo){
       console.log("Todo Deleted")
-
+      const todoIndex = this.todos.indexOf(todo)
       this.todos.splice(todoIndex, 1)
       SetTodoStorage(this.todos)
     }

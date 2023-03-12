@@ -11,12 +11,13 @@
 ## Functions
 
 - [x]  Add Todo
-- [ ]  Delete To Do
+- [x]  Delete To Do
 - [x]  Mark To Do as done
     - [x]  Checkbox state like isDone boolean
-- [ ]  To Do’s filter
-    - [ ]  active
-    - [ ]  done
+- [x]  To Do’s filter
+    - [x]  active
+    - [x]  done
+    - [x]  all
 - [ ]  Show To Do’s done (graphically/ animated)
 
 ## **Nonfunctional requirements**
