@@ -55,24 +55,35 @@
 </template>
 
 <script>
-let todayDate = () => new Date().toLocaleDateString('de-CH')
+import uuid4 from "uuid4";
+
+const TODO_STORAGE = 'todoStorage'
+const SetTodoStorage = (todos) => localStorage.setItem(TODO_STORAGE, JSON.stringify(todos))
+const todayDate = () => new Date().toLocaleDateString('de-CH')
+const todoId = () => uuid4()
 export default {
   data(){
     return{
       todoInput: '',
-      todos: [
-        {
-          id: 1,
-          task: 'Work at InnoTix',
-          date: todayDate(),
-          isDone: false
-        }
-      ]
+      todos: JSON.parse(localStorage.getItem(TODO_STORAGE)) || []
     }
   },
   methods:{
     addTodo(){
       console.log("Todo Added")
+
+      if (!this.todoInput) return
+
+      let newTodo = {
+        id: todoId(),
+        task: this.todoInput,
+        date: todayDate(),
+        isDone: false
+      }
+
+      this.todos.unshift(newTodo)
+      SetTodoStorage(this.todos)
+      this.todoInput = ''
     },
     checkTodo(){
       console.log("Todo Checked")

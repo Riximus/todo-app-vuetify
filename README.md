@@ -10,7 +10,7 @@
 # Tasks
 ## Functions
 
-- [ ]  Add Todo
+- [x]  Add Todo
 - [ ]  Delete To Do
 - [ ]  Mark To Do as done
     - [ ]  Checkbox state like isDone boolean
