@@ -18,14 +18,14 @@
     - [x]  active
     - [x]  done
     - [x]  all
-- [ ]  Show To Do’s done (graphically/ animated)
+- [x]  Show To Do’s done (graphically/ animated)
 
 ## **Nonfunctional requirements**
 
-- [ ]  Save Todo’s in a Database
-    - [ ]  Save
-    - [ ]  Done Change
-    - [ ]  Delete
+- [x]  Save Todo’s in a Database
+    - [x]  Save
+    - [x]  Done Change
+    - [x]  Delete
 - [ ]  Tests
 - [x]  Gestaltung von UI
     - [x]  Input
